@@ -21,42 +21,40 @@
                     text-align: center;
                     margin: 0px;
                 }
-
-
-
-                .addBookForm {
-                    grid-column: 1/7;
+                .addBookform {
+                    grid-column: 1/6;
                     grid-row: 2;
-
                     display: grid;
-                    grid-template-columns: repeat(12, 1fr);
-                    grid-auto-rows: minmax(30px, auto);
-                    grid-gap: 5px;
+                    grid-template-columns: 2fr 4fr;
+                    grid-auto-rows: minmax(100px, auto);
+                    grid-gap: 10px;
                 }
+                    .addBookTitle {
+                        grid-column: 1/2;
+                        grid-row: 1;
+                        text-align: center;
+                        font-weight: bold;
+                        font-variant: small-caps;
+                    }
 
-                   #addFormTitle{
-                       grid-column: 1/13;
-                       grid-row: 1;
-                       padding: 0px;
-                       margin: 0px;
-                       text-align: center;
-                   }
+                    .addTitle {
+                        grid-column: 1;
+                        grid-row: 2;
 
-                   .bookTitleLabel{
-                       grid-column: 1/5;
-                       grid-row: 2;
-                   }
+                    }
 
-                   .bookTitleInput{
-                       grid-column: 5/13;
-                       grid-row: 2;
-                   }
+                    .addTitleInput {
+                        grid-column: 6/13;
+                        grid-row: 2;
+                    }
+
+
 
 
 
 
                 .searchBookForm {
-                    grid-column: 7/13;
+                    grid-column: 6/13;
                     grid-row: 2;
                 }
 
@@ -69,49 +67,27 @@
     </head>
     <body>
         <div class="container">
-
                 <h1 class='title borderShadow'>The Yoder Library</h1>
-                <section class="addBookForm borderShadow">
-                    <h3 id='addFormTitle'>Add Book</h3>
-                    <form>
-                        <div>
-                            <label for='bookTitle' class='bookTitleLabel'>Title: </label>
-                            <input type='text' id='bookTitleInput'>
-                        </div>
-                        <div>
-                            <label for="bookAuthor" id="bookAuthorLabel">Author: </label>
-                            <input type="text" id="bookAuthorInput">
-                        </div>
-                        <div>
-                            <label for="bookOwner" id="bookOwnerLabel">Owner: </label>
-                            <input type='text' id='bookOwnerInput'>
-                        </div>
-                        <div>
-                            <input type='submit' value='Submit'>
-                        </div>
-                    </form>
-                </section>
-                <section class="searchBookForm borderShadow">
-                    <h3 class="formTitle">Search for Books</h3>
-                    <form>
-
-                        <div>
-                            <label for="searchBookTitle" id='searchTitleLabel'>Title: </label>
-                            <input type='text' id='searchTitleInput'>
-                        </div>
-                        <div>
-                            <label for='searchAuthor' id='searchAuthorlabel'>Author: </label>
-                            <input type='text' id='searchAuthorInput'>
-                        </div>
-                        <div>
-                            <label for='searchOwner' id='searchOwnerLabel'>Owner: </label>
-                            <input type='text' id='searchOwnerInput'>
-                        </div>
-                        <div>
-                            <input type='submit' value="Submit">
-                        </div>
-                    </form>
-                </section>
+                <div class="addBookForm borderShadow">
+                    <div class="addBookTitle">Add Book Form</div>
+                    <label for="addTitle" class="addTitle">Title: </label>
+                    <input type='text'class="addTitleInput" id="aTitleInput">
+                    <label for='addAuthor' class='addAuthor'>Author: </label>
+                    <input type='text' class='addAuthorInput' id='aAuthorInput'>
+                    <label for='addOwner' class='addOwner'>Owner: </label>
+                    <input type='text' class='addOwnerInput' id='aOwnerInput'>
+                    <input type='submit'>
+                </div>
+                <div class='searchBookForm borderShadow'>
+                    <div class='searchBookTitle'>Search Book Form</div>
+                    <label for='searchTitle' class='searchTitle'>Title: </label>
+                    <input type='text' class='searchTitleInput' id='sTitleInput'>
+                    <label for='searchAuthor' class='searchAuthor'>Author: </label>
+                    <input type='text' class='searchAuthorInput' id='sAuthorInput'>
+                    <label for='searchOwner' class='searchOwner'>Owner: </label>
+                    <input type='text' class='searchOwnerInput' id='sOwnerInput'>
+                    <input type="submit">
+                </div>
 
                 <table class="bookTable borderShadow">
                     <thead>
