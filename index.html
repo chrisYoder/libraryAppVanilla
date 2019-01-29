@@ -11,74 +11,186 @@
             }
             .container{
                 display: grid;
-                grid-template-columns: repeat(12, 1fr);
-                grid-auto-rows: minmax(50px, auto);
+                grid-template-columns: repeat(2, 6fr);
+                grid-auto-rows: minmax(30px, auto);
+                grid-template-areas:
+                    "title title"
+                    "addBook searchBook"
+                    "table table";
                 grid-gap: 1em;
             }
                 .title {
-                    grid-column: 1/13;
-                    grid-row: 1;
+                    grid-area: title;
                     text-align: center;
                     margin: 0px;
                 }
-                .addBookform {
-                    grid-column: 1/6;
-                    grid-row: 2;
+
+                .addBookForm {
+                    grid-area: addBook;
                     display: grid;
-                    grid-template-columns: 2fr 4fr;
-                    grid-auto-rows: minmax(100px, auto);
-                    grid-gap: 10px;
+                    grid-template-columns: 4fr 8fr;
+                    grid-auto-rows: minmax(10px, auto);
+                    grid-template-areas:
+                        "formName formName"
+                        "title titleInput"
+                        "author authorInput"
+                        "owner ownerInput"
+                        "submit submit";
+                    grid-gap:10px;
+                    padding: 5px;
                 }
-                    .addBookTitle {
-                        grid-column: 1/2;
-                        grid-row: 1;
+
+                    .addBookTitle{
+                        grid-area: formName;
                         text-align: center;
                         font-weight: bold;
                         font-variant: small-caps;
                     }
 
-                    .addTitle {
-                        grid-column: 1;
-                        grid-row: 2;
+                    .addTitle{
+                        grid-area: title;
+                        text-align: center;
+                    }
+
+                    .addTitleInput{
+                        grid-area: titleInput;
 
                     }
 
-                    .addTitleInput {
-                        grid-column: 6/13;
-                        grid-row: 2;
+                    .addAuthor {
+                        grid-area: author;
+                        text-align: center;
+                    }
+
+                    .addAuthorInput{
+                        grid-area: authorInput;
+                    }
+
+                    .addOwner {
+                        grid-area: owner;
+                        text-align: center;
+                    }
+
+                    .addOwnerInput {
+                        grid-area: ownerInput;
+                    }
+
+                    .addSubmit{
+                        grid-area: submit;
+                        justify-self: center;
                     }
 
 
 
-
-
-
-                .searchBookForm {
-                    grid-column: 6/13;
-                    grid-row: 2;
+                .searchBookForm{
+                    grid-area: searchBook;
+                    display: grid;
+                    grid-template-columns: 4fr 8fr;
+                    grid-template-rows: minmax(10px, auto);
+                    grid-template-areas:
+                        "searchFormName searchFormName"
+                        "searchTitle searchTitleInput"
+                        "searchAuthor searchAuthorInput"
+                        "searchOwner searchOwnerInput"
+                        "searchSubmit searchSubmit";
+                    grid-gap: 10px;
+                    padding: 5px;
                 }
 
-            .bookTable{
-                grid-column: 1/13;
-                grid-row: 3;
+                    .searchBookTitle{
+                        grid-area: searchFormName;
+                        text-align: center;
+                        font-weight: bold;
+                        font-variant: small-caps;
+                    }
+
+                    .searchTitle {
+                        grid-area: searchTitle;
+                        text-align: center;
+
+                    }
+
+                    .searchTitleInput {
+                        grid-area:: searchTitleInput;
+                    }
+
+                    .searchAuthor {
+                        grid-area: searchAuthor;
+                        text-align: center;
+
+                    }
+
+                    .searchAuthorInput {
+                        grid-area: searchAuthorInput;
+                    }
+
+                    .searchOwner {
+                        grid-area: searchOwner;
+                        text-align: center;
+                    }
+
+                    .searchOwnerInput {
+                        grid-area: searchOwnerInput;
+                    }
+
+                    .searchSubmit {
+                        grid-area: searchSubmit;
+                        justify-self: center;
+                    }
+
+                .bookTable {
+                    grid-area: table;
+                }
+
+                    .bookTable th {
+                        border-right: 1px solid black;
+                        border-bottom: 1px solid black;
+                        border-radius: 2px;
+                    }
+
+                    .bookTable th:nth-child(4){
+                        border-right: none;
+                    }
+
+                    .bookTable tr:nth-child(even){
+                        background-color: grey;
+                    }
+
+            @media only screen and (max-width: 500px) {
+                .container {
+                    grid-template-columns: 100%;
+                    grid-template-areas:
+                        "title"
+                        "addBook"
+                        "searchBook"
+                        "table";
+                }
             }
 
+            @media only screen and (min-width: 750px){
+                .container{
+                    grid-template-areas:
+                    "title title"
+                    "addBook table"
+                    "searchBook table"
+                }
+            }
         </style>
     </head>
     <body>
         <div class="container">
                 <h1 class='title borderShadow'>The Yoder Library</h1>
-                <div class="addBookForm borderShadow">
-                    <div class="addBookTitle">Add Book Form</div>
+                <div class="addBookForm borderShadow column">
+                    <span class="addBookTitle">Add Book Form</span>
                     <label for="addTitle" class="addTitle">Title: </label>
                     <input type='text'class="addTitleInput" id="aTitleInput">
                     <label for='addAuthor' class='addAuthor'>Author: </label>
                     <input type='text' class='addAuthorInput' id='aAuthorInput'>
                     <label for='addOwner' class='addOwner'>Owner: </label>
                     <input type='text' class='addOwnerInput' id='aOwnerInput'>
-                    <input type='submit'>
+                    <input type='submit' class='addSubmit'>
                 </div>
-                <div class='searchBookForm borderShadow'>
+                <div class='searchBookForm borderShadow column'>
                     <div class='searchBookTitle'>Search Book Form</div>
                     <label for='searchTitle' class='searchTitle'>Title: </label>
                     <input type='text' class='searchTitleInput' id='sTitleInput'>
@@ -86,7 +198,7 @@
                     <input type='text' class='searchAuthorInput' id='sAuthorInput'>
                     <label for='searchOwner' class='searchOwner'>Owner: </label>
                     <input type='text' class='searchOwnerInput' id='sOwnerInput'>
-                    <input type="submit">
+                    <input type="submit" class='searchSubmit'>
                 </div>
 
                 <table class="bookTable borderShadow">
