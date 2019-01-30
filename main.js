@@ -53,7 +53,7 @@ class UI {
 }
 
 
-function setStorage(){
+function setStorageAndTableData(){
     if(localStorage.hasOwnProperty('books') === false) {
         localStorage.setItem('books', '[]');
     }

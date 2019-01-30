@@ -177,10 +177,10 @@
             }
         </style>
     </head>
-    <body onload="setStorage()">
+    <body onload="setStorageAndTableData()">
         <div class="container">
                 <h1 class='title borderShadow'>The Yoder Library</h1>
-                <div class="addBookForm borderShadow column">
+                <section class="addBookForm borderShadow column">
                     <span class="addBookTitle">Add Book Form</span>
                     <label for="addTitle" class="addTitle">Title: </label>
                     <input type='text'class="addTitleInput" id="aTitleInput">
@@ -189,8 +189,8 @@
                     <label for='addOwner' class='addOwner'>Owner: </label>
                     <input type='text' class='addOwnerInput' id='aOwnerInput'>
                     <input type='submit' class='addSubmit'>
-                </div>
-                <div class='searchBookForm borderShadow column'>
+                </section>
+                <section class='searchBookForm borderShadow column'>
                     <div class='searchBookTitle'>Search Book Form</div>
                     <label for='searchTitle' class='searchTitle'>Title: </label>
                     <input type='text' class='searchTitleInput' id='sTitleInput'>
@@ -199,7 +199,7 @@
                     <label for='searchOwner' class='searchOwner'>Owner: </label>
                     <input type='text' class='searchOwnerInput' id='sOwnerInput'>
                     <input type="submit" class='searchSubmit'>
-                </div>
+                </section>
 
                 <table class="bookTable borderShadow">
                     <thead>
