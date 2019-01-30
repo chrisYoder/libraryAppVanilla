@@ -4,6 +4,22 @@ class Book {
         this.author = author;
         this.owner = owner;
     }
+
+    addBook(){
+        let books = JSON.parse(localStorage.getItem('books'));
+        let entry = {
+            'title' : this.title,
+            'author': this.author,
+            'owner' : this.owner
+        }
+
+        books.push(entry);
+        localStorage.setItem('books', JSON.stringify(books));
+    }
+
+    getBooks(){
+        let books = JSON.parse(localStorage.getItem('books'));
+    }
 }
 
 class UI {
@@ -53,6 +69,8 @@ class UI {
 }
 
 
+
+
 function setStorageAndTableData(){
     if(localStorage.hasOwnProperty('books') === false) {
         localStorage.setItem('books', '[]');
@@ -63,7 +81,7 @@ function setStorageAndTableData(){
     }
 }
 
-document.getElementById('addSubmit').addEventListener('click', function() {
+document.getElementById('addSubmit').addEventListener('submit', function() {
     const title = document.getElementById('aTitleInput').value;
     const author = document.getElementById('aAuthorInput').value;
     const owner = document.getElementById('aOwnerInput').value;
@@ -71,5 +89,6 @@ document.getElementById('addSubmit').addEventListener('click', function() {
     const book = new Book(title, author, owner);
     const ui = new UI;
 
-    let books 
+    books.addBook(title, author, owner);
+    ui.render();
 })
