@@ -172,7 +172,7 @@
                     grid-template-areas:
                     "title title"
                     "addBook table"
-                    "searchBook table"
+                    "searchBook table";
                 }
             }
         </style>
@@ -180,15 +180,15 @@
     <body onload="setStorageAndTableData()">
         <div class="container">
                 <h1 class='title borderShadow'>The Yoder Library</h1>
-                <section class="addBookForm borderShadow column">
+                <section class="addBookForm borderShadow column" id="addBooks">
                     <span class="addBookTitle">Add Book Form</span>
                     <label for="addTitle" class="addTitle">Title: </label>
-                    <input type='text'class="addTitleInput" id="aTitleInput">
+                    <input type='text' class="addTitleInput" id="aTitleInput">
                     <label for='addAuthor' class='addAuthor'>Author: </label>
                     <input type='text' class='addAuthorInput' id='aAuthorInput'>
                     <label for='addOwner' class='addOwner'>Owner: </label>
                     <input type='text' class='addOwnerInput' id='aOwnerInput'>
-                    <input type='submit' class='addSubmit' id="addSubmit">
+                    <input type='submit' class='addSubmit' id="addSubmitBtn">
                 </section>
                 <section class='searchBookForm borderShadow column'>
                     <div class='searchBookTitle'>Search Book Form</div>
@@ -201,7 +201,7 @@
                     <input type="submit" class='searchSubmit'>
                 </section>
 
-                <table class="bookTable borderShadow">
+                <table class="bookTable borderShadow" id='bookTable'>
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -231,5 +231,6 @@
 
             <!-- Nothing below this -->
         </div>
+        <script src="main.js"></script>
     </body>
 </html>
