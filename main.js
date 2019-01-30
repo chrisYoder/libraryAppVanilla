@@ -63,4 +63,13 @@ function setStorageAndTableData(){
     }
 }
 
+document.getElementById('addSubmit').addEventListener('click', function() {
+    const title = document.getElementById('aTitleInput').value;
+    const author = document.getElementById('aAuthorInput').value;
+    const owner = document.getElementById('aOwnerInput').value;
 
+    const book = new Book(title, author, owner);
+    const ui = new UI;
+
+    let books 
+})

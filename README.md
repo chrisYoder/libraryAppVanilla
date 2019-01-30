@@ -10,4 +10,5 @@ I undertook this project to better understand Object Oriented Programming. I dre
             <li>Make some significant changes to the Javascript</li>
         </ul>
     <li>I used CSS Grid for the responsive layout as opposed to the CSS library used in the example</li>
+    <li>I added search functionality</li>
 </ol>
