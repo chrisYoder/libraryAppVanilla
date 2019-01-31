@@ -22,11 +22,18 @@ class Book {
 
 class UI {
     render(){
-        let books = JSON.parse(localStorage.getItem('books'));
+        let books;
         const bookList = document.getElementById("bookList");
         const frag = document.createDocumentFragment();
 
 
+
+        if(localStorage.length === 1) {
+            books = JSON.parse(localStorage.getItem('books'));
+        }
+        else{
+            books = JSON.parse(localStorage.getItem('filteredBooks'));
+        }
 
         bookList.innerHTML = '';
         books.forEach( book => {
@@ -47,13 +54,13 @@ class UI {
     }
 
     deleteBook(target){
-      //broken
+
 
       if(target.className === 'delete'){
         let books = JSON.parse(localStorage.getItem('books'));
 
           books.forEach(book => {
-            if(book['title'] === target.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML){
+            if(book.title === target.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML){
               books.splice(book, 1);
               localStorage.setItem('books', JSON.stringify(books));
             }
@@ -79,89 +86,71 @@ class UI {
     }
 }
 
-// var input, filter, table, tr, td, i, txtValue;
-//   input = document.getElementById("myInput");
-//   filter = input.value.toUpperCase();
-//   table = document.getElementById("myTable");
-//   tr = table.getElementsByTagName("tr");
 
-//   // Loop through all table rows, and hide those who don't match the search query
-//   for (i = 0; i < tr.length; i++) {
-//     td = tr[i].getElementsByTagName("td")[0];
-//     if (td) {
-//       txtValue = td.textContent || td.innerText;
-//       if (txtValue.toUpperCase().indexOf(filter) > -1) {
-//         tr[i].style.display = "";
-//       } else {
-//         tr[i].style.display = "none";
-//       }
-//     }
-//   }
-// }
 
 class Search{
-  titleSearch(){
-    let input = document.getElementById('sTitleInput');
-    let filter = input.value.toUpperCase();
-    let table = document.getElementById('bookTable');
-    let tr = table.getElementsByTagName('tr');
-    let textValue;
+    titleSearch() {
+        let index = 1;
+        let books = JSON.parse(localStorage.getItem('books'));
+        let filteredBooks = [];
+        let searchValue = document.getElementById('sTitleInput').value;
 
-    for(let i = 0; i < tr.length; i++){
-      td = tr[i].getElementsByTagName('td')[0];
-      if (td) {
-        txtValue = td.textContent || td.innerText;
-        if(txtValue.toUpperCase().indexOf(filter) > -1){
-          tr[i].style.display='';
-        }
-        else{
-          tr[i].style.display = 'none';
-        }
-      }
+
+        books.forEach(book => {
+                if (book.title === searchValue) {
+                    filteredBooks.push(book);
+                }
+        });
+
+        localStorage.setItem('filteredBooks', JSON.stringify(filteredBooks));
+
+        const ui = new UI();
+        ui.render();
+
+        localStorage.removeItem('filteredBooks');
     }
-  }
 
-  authorSearch(){
-    let input = document.getElementById('sAuthorInput');
-    let filter = input.value.toUpperCase();
-    let table = document.getElementById('bookTable');
-    let tr = table.getElementsByTagName('tr');
-    let textValue;
+    authorSearch() {
+        let index = 2;
+        let books = JSON.parse(localStorage.getItem('books'));
+        let filteredBooks = [];
+        let searchValue = document.getElementById('sAuthorInput').value;
 
-    for(let i = 0; i < tr.length; i++){
-      td = tr[i].getElementsByTagName('td')[1];
-      if (td) {
-        txtValue = td.textContent || td.innerText;
-        if(txtValue.toUpperCase().indexOf(filter) > -1){
-          tr[i].style.display='';
-        }
-        else{
-          tr[i].style.display = 'none';
-        }
-      }
+
+        books.forEach(book => {
+                if (book.author === searchValue) {
+                    filteredBooks.push(book);
+                }
+        });
+
+        localStorage.setItem('filteredBooks', JSON.stringify(filteredBooks));
+
+        const ui = new UI();
+        ui.render();
+
+        localStorage.removeItem('filteredBooks');
     }
-  }
 
-  ownerSearch(){
-    let input = document.getElementById('sOwnerInput');
-    let filter = input.value.toUpperCase();
-    let table = document.getElementById('bookTable');
-    let tr = table.getElementsByTagName('tr');
-    let textValue;
+    ownerSearch() {
+        let index = 3;
+        let books = JSON.parse(localStorage.getItem('books'));
+        let filteredBooks = [];
+        let searchValue = document.getElementById('sOwnerInput').value;
 
-    for(let i = 0; i < tr.length; i++){
-      td = tr[i].getElementsByTagName('td')[2];
-      if (td) {
-        txtValue = td.textContent || td.innerText;
-        if(txtValue.toUpperCase().indexOf(filter) > -1){
-          tr[i].style.display='';
-        }
-        else{
-          tr[i].style.display = 'none';
-        }
-      }
+
+        books.forEach(book => {
+                if (book.owner === searchValue) {
+                    filteredBooks.push(book);
+                }
+        });
+
+        localStorage.setItem('filteredBooks', JSON.stringify(filteredBooks));
+
+        const ui = new UI();
+        ui.render();
+
+       localStorage.removeItem('filteredBooks');
     }
-  }
 }
 
 function setStorageAndTableData(){
@@ -173,6 +162,8 @@ function setStorageAndTableData(){
         ui.render();
     }
 }
+
+
 
 document.getElementById('addSubmitBtn').addEventListener('click', function(e){
     const title = document.getElementById('aTitleInput').value;
@@ -192,11 +183,23 @@ document.getElementById('addSubmitBtn').addEventListener('click', function(e){
     }
 });
 
+document.getElementById('searchSubmitBtn').addEventListener('click', function(e) {
+    let search = new Search();
 
+    if(document.getElementById('sTitleInput').value !== ''){
+        search.titleSearch();
+    }
+    else if(document.getElementById('sAuthorInput').value !== ''){
+        search.authorSearch();
+    }
+    else if(document.getElementById('sOwnerInput').value !== ''){
+        search.ownerSearch();
+    }
+});
 
 document.getElementById('bookList').addEventListener('click', function(e){
   const ui = new UI();
 
   ui.deleteBook(e.target);
   ui.render();
-})
+});

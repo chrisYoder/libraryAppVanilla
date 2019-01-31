@@ -3,184 +3,12 @@
     <head>
         <title>The Yoder Library</title>
         <meta charset="utf-8">
-        <style>
-            .borderShadow{
-                border: 1px solid black;
-                box-shadow: 3px 3px 10px grey;
-                border-radius: 5px;
-            }
-            .container{
-                display: grid;
-                grid-template-columns: repeat(2, 6fr);
-                grid-auto-rows: minmax(30px, auto);
-                grid-template-areas:
-                    "title title"
-                    "addBook searchBook"
-                    "table table";
-                grid-gap: 1em;
-            }
-                .title {
-                    grid-area: title;
-                    text-align: center;
-                    margin: 0px;
-                }
-
-                .addBookForm {
-                    grid-area: addBook;
-                    display: grid;
-                    grid-template-columns: 4fr 8fr;
-                    grid-auto-rows: minmax(10px, auto);
-                    grid-template-areas:
-                        "formName formName"
-                        "title titleInput"
-                        "author authorInput"
-                        "owner ownerInput"
-                        "submit submit";
-                    grid-gap:10px;
-                    padding: 5px;
-                }
-
-                    .addBookTitle{
-                        grid-area: formName;
-                        text-align: center;
-                        font-weight: bold;
-                        font-variant: small-caps;
-                    }
-
-                    .addTitle{
-                        grid-area: title;
-                        text-align: center;
-                    }
-
-                    .addTitleInput{
-                        grid-area: titleInput;
-
-                    }
-
-                    .addAuthor {
-                        grid-area: author;
-                        text-align: center;
-                    }
-
-                    .addAuthorInput{
-                        grid-area: authorInput;
-                    }
-
-                    .addOwner {
-                        grid-area: owner;
-                        text-align: center;
-                    }
-
-                    .addOwnerInput {
-                        grid-area: ownerInput;
-                    }
-
-                    .addSubmit{
-                        grid-area: submit;
-                        justify-self: center;
-                    }
-
-
-
-                .searchBookForm{
-                    grid-area: searchBook;
-                    display: grid;
-                    grid-template-columns: 4fr 8fr;
-                    grid-template-rows: minmax(10px, auto);
-                    grid-template-areas:
-                        "searchFormName searchFormName"
-                        "searchTitle searchTitleInput"
-                        "searchAuthor searchAuthorInput"
-                        "searchOwner searchOwnerInput"
-                        "searchSubmit searchSubmit";
-                    grid-gap: 10px;
-                    padding: 5px;
-                }
-
-                    .searchBookTitle{
-                        grid-area: searchFormName;
-                        text-align: center;
-                        font-weight: bold;
-                        font-variant: small-caps;
-                    }
-
-                    .searchTitle {
-                        grid-area: searchTitle;
-                        text-align: center;
-
-                    }
-
-                    .searchTitleInput {
-                        grid-area:: searchTitleInput;
-                    }
-
-                    .searchAuthor {
-                        grid-area: searchAuthor;
-                        text-align: center;
-
-                    }
-
-                    .searchAuthorInput {
-                        grid-area: searchAuthorInput;
-                    }
-
-                    .searchOwner {
-                        grid-area: searchOwner;
-                        text-align: center;
-                    }
-
-                    .searchOwnerInput {
-                        grid-area: searchOwnerInput;
-                    }
-
-                    .searchSubmit {
-                        grid-area: searchSubmit;
-                        justify-self: center;
-                    }
-
-                .bookTable {
-                    grid-area: table;
-                }
-
-                    .bookTable th {
-                        border-right: 1px solid black;
-                        border-bottom: 1px solid black;
-                        border-radius: 2px;
-                    }
-
-                    .bookTable th:nth-child(4){
-                        border-right: none;
-                    }
-
-                    .bookTable tr:nth-child(even){
-                        background-color: grey;
-                    }
-
-            @media only screen and (max-width: 500px) {
-                .container {
-                    grid-template-columns: 100%;
-                    grid-template-areas:
-                        "title"
-                        "addBook"
-                        "searchBook"
-                        "table";
-                }
-            }
-
-            @media only screen and (min-width: 750px){
-                .container{
-                    grid-template-areas:
-                    "title title"
-                    "addBook table"
-                    "searchBook table";
-                }
-            }
-        </style>
+        <link href='style.css' rel='stylesheet' type='text/css'>
     </head>
     <body onload="setStorageAndTableData()">
         <div class="container">
                 <h1 class='title borderShadow'>The Yoder Library</h1>
-                <section class="addBookForm borderShadow column" id="addBooks">
+                <section class="addBookForm borderShadow ">
                     <span class="addBookTitle">Add Book Form</span>
                     <label for="addTitle" class="addTitle">Title: </label>
                     <input type='text' class="addTitleInput" id="aTitleInput">
@@ -198,10 +26,10 @@
                     <input type='text' class='searchAuthorInput' id='sAuthorInput'>
                     <label for='searchOwner' class='searchOwner'>Owner: </label>
                     <input type='text' class='searchOwnerInput' id='sOwnerInput'>
-                    <input type="submit" class='searchSubmit'>
+                    <input type="submit" class='searchSubmit' id='searchSubmitBtn'>
                 </section>
 
-                <table class="bookTable borderShadow" id='bookTable'>
+                <table class="bookTable borderShadow">
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -213,21 +41,6 @@
                     <tbody id='bookList'>
                     </tbody>
                 </table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             <!-- Nothing below this -->
         </div>
