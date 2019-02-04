@@ -1,3 +1,5 @@
+/*strict mode*/
+
 class Book {
     constructor(title, author, owner) {
         this.title = title;
@@ -13,9 +15,27 @@ class Book {
             'owner' : this.owner
         }
 
+        entry.forEach(item => item.toLowerCase());
+        alert(entry);
         books.push(entry);
         localStorage.setItem('books', JSON.stringify(books));
     }
+
+    deleteBook(target){
+
+
+      if(target.className === 'delete'){
+        let books = JSON.parse(localStorage.getItem('books'));
+
+        books.forEach(book => {
+            if(book.title === target.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML){
+                books.splice(book, 1);
+                localStorage.setItem('books', JSON.stringify(books));
+            }
+          });
+        }
+    }
+
 
 
 }
@@ -53,20 +73,6 @@ class UI {
         alert(`${className}: ${message}`);
     }
 
-    deleteBook(target){
-
-
-      if(target.className === 'delete'){
-        let books = JSON.parse(localStorage.getItem('books'));
-
-          books.forEach(book => {
-            if(book.title === target.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML){
-              books.splice(book, 1);
-              localStorage.setItem('books', JSON.stringify(books));
-            }
-          });
-
-      }
 
     }
 
