@@ -19,23 +19,23 @@ class Book {
         localStorage.setItem('books', JSON.stringify(books));
     }
 
-    static deleteBook(target){
-
-
+    deleteBook(target){ //this is broken
+        console.log(target.rowIndex);
       if(target.className === 'delete'){
         let books = JSON.parse(localStorage.getItem('books'));
-
+        
         books.forEach(book => {
-            if(book.title === target.previousElementSibling.previousElementSibling.previousElementSibling.innerHTML){
-                books.splice(book, 1);
-                localStorage.setItem('books', JSON.stringify(books));
+            
+            if(book.title === target.previousElementSibling.previousElementSibling.previousElementSibling.innerText){
+                
+                // books.splice(book, 1);
+                // localStorage.setItem('books', JSON.stringify(books));
             }
           });
+        
+        
         }
     }
-
-
-
 }
 
 class UI {
@@ -44,10 +44,9 @@ class UI {
         const bookList = document.getElementById("bookList");
         const frag = document.createDocumentFragment();
 
-
-
         if(localStorage.length === 1) {
             books = JSON.parse(localStorage.getItem('books'));
+            console.log(books.length);
         }
         else{
             books = JSON.parse(localStorage.getItem('filteredBooks'));
@@ -65,6 +64,7 @@ class UI {
         });
 
         bookList.appendChild(frag);
+        
     }
 
     showAlert(message, className){
@@ -77,79 +77,39 @@ class UI {
         document.getElementById('aOwnerInput').value = '';
         document.getElementById('aTitleInput').focus();
     }
-
-    clearSearchBookFields(){
-        document.getElementById('sTitleInput').value = '';
-        document.getElementById('sAuthorInput').value = '';
-        document.getElementById('sOwnerInput').value = '';
-        document.getElementById('sTitleInput').focus();
-    }
 }
 
 
 
 class Search{
-    titleSearch() {
-        let index = 1;
-        let books = JSON.parse(localStorage.getItem('books'));
-        let filteredBooks = [];
-        let searchValue = document.getElementById('sTitleInput').value;
-
-
-        books.forEach(book => {
-                if (book.title === searchValue) {
-                    filteredBooks.push(book);
-                }
-        });
-
-        localStorage.setItem('filteredBooks', JSON.stringify(filteredBooks));
-
-        const ui = new UI();
+    static search(elementId, field) {
+        const books = JSON.parse(localStorage.getItem("books"));
+        const searchValue = document.getElementById(elementId).value;
+        const totalBooks = books.length;
+        const filteredBooks = books.filter(book => book[field].toLowerCase().includes(searchValue.toLowerCase()));
+        
+        
+        localStorage.setItem("filteredBooks", JSON.stringify(filteredBooks));
+    
+    
         ui.render();
+    
+         localStorage.removeItem("filteredBooks");
+    
+        if (elementId.value === '') { ui.render }
+    }
+    
 
-        localStorage.removeItem('filteredBooks');
+    static titleSearch() {
+        this.search("sTitleInput", "title");
     }
 
-    authorSearch() {
-        let index = 2;
-        let books = JSON.parse(localStorage.getItem('books'));
-        let filteredBooks = [];
-        let searchValue = document.getElementById('sAuthorInput').value;
-
-
-        books.forEach(book => {
-                if (book.author === searchValue) {
-                    filteredBooks.push(book);
-                }
-        });
-
-        localStorage.setItem('filteredBooks', JSON.stringify(filteredBooks));
-
-        const ui = new UI();
-        ui.render();
-
-        localStorage.removeItem('filteredBooks');
+    static authorSearch() {
+        this.search("sAuthorInput", "author");
     }
 
-    ownerSearch() {
-        let index = 3;
-        let books = JSON.parse(localStorage.getItem('books'));
-        let filteredBooks = [];
-        let searchValue = document.getElementById('sOwnerInput').value;
-
-
-        books.forEach(book => {
-                if (book.owner === searchValue) {
-                    filteredBooks.push(book);
-                }
-        });
-
-        localStorage.setItem('filteredBooks', JSON.stringify(filteredBooks));
-
-        const ui = new UI();
-        ui.render();
-
-       localStorage.removeItem('filteredBooks');
+    static ownerSearch() {
+        this.search("sOwnerInput", "owner");
     }
 }
 
@@ -165,7 +125,7 @@ window.addEventListener('load', () => {
         localStorage.setItem('books', '[]');
     }
     else{
-        let ui = new UI();
+        
         ui.render();
     }
 });
@@ -191,13 +151,23 @@ document.getElementById('addSubmitBtn').addEventListener('click', () => {
     }
 });
 
-document.getElementById('searchSubmitBtn').addEventListener('click', function(e) {
-   
-});
 
 // good
 document.getElementById('bookList').addEventListener('click', (e) => {
-
-  Book.deleteBook(e.target);
-  ui.render();
+    const book = new Book();
+    book.deleteBook(e.target);
+    ui.render();
+    
 });
+
+/*Search functionality*/
+
+/*Title*/
+document.getElementById('sTitleInput').addEventListener('keyup', () => Search.titleSearch());
+
+/*Author*/
+document.getElementById('sAuthorInput').addEventListener('keyup', () => Search.authorSearch());
+
+/*Owner*/
+document.getElementById('sOwnerInput').addEventListener('keyup', () => Search.ownerSearch());
+
