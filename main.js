@@ -1,4 +1,4 @@
-/*strict mode*/
+'use strict';
 
 class Book {
     constructor(title, author, owner) {
@@ -13,15 +13,13 @@ class Book {
             'title' : this.title,
             'author': this.author,
             'owner' : this.owner
-        }
+        };
 
-        entry.forEach(item => item.toLowerCase());
-        alert(entry);
         books.push(entry);
         localStorage.setItem('books', JSON.stringify(books));
     }
 
-    deleteBook(target){
+    static deleteBook(target){
 
 
       if(target.className === 'delete'){
@@ -73,15 +71,11 @@ class UI {
         alert(`${className}: ${message}`);
     }
 
-
-    }
-
     clearAddBookFields(){
         document.getElementById('aTitleInput').value = '';
         document.getElementById('aAuthorInput').value = '';
         document.getElementById('aOwnerInput').value = '';
         document.getElementById('aTitleInput').focus();
-
     }
 
     clearSearchBookFields(){
@@ -159,25 +153,33 @@ class Search{
     }
 }
 
-function setStorageAndTableData(){
-    if(localStorage.hasOwnProperty('books') === false) {
+
+/*Main Script*/
+
+const ui = new UI();
+// const book = new Book(title, author, owner);
+
+// good
+window.addEventListener('load', () => {
+  if(localStorage.hasOwnProperty('books') === false) {
         localStorage.setItem('books', '[]');
     }
     else{
         let ui = new UI();
         ui.render();
     }
-}
+});
+    
 
 
 
-document.getElementById('addSubmitBtn').addEventListener('click', function(e){
+// good
+document.getElementById('addSubmitBtn').addEventListener('click', () => {
     const title = document.getElementById('aTitleInput').value;
     const author = document.getElementById('aAuthorInput').value;
     const owner = document.getElementById('aOwnerInput').value;
 
     const book = new Book(title, author, owner);
-    const ui = new UI();
 
     if(title === '' || author === '' || owner === ''){
       ui.showAlert('Please fill in all fields', 'Error');
@@ -190,22 +192,12 @@ document.getElementById('addSubmitBtn').addEventListener('click', function(e){
 });
 
 document.getElementById('searchSubmitBtn').addEventListener('click', function(e) {
-    let search = new Search();
-
-    if(document.getElementById('sTitleInput').value !== ''){
-        search.titleSearch();
-    }
-    else if(document.getElementById('sAuthorInput').value !== ''){
-        search.authorSearch();
-    }
-    else if(document.getElementById('sOwnerInput').value !== ''){
-        search.ownerSearch();
-    }
+   
 });
 
-document.getElementById('bookList').addEventListener('click', function(e){
-  const ui = new UI();
+// good
+document.getElementById('bookList').addEventListener('click', (e) => {
 
-  ui.deleteBook(e.target);
+  Book.deleteBook(e.target);
   ui.render();
 });
