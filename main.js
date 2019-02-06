@@ -19,21 +19,16 @@ class Book {
         localStorage.setItem('books', JSON.stringify(books));
     }
 
-    deleteBook(target){ //this is broken
-        console.log(target.rowIndex);
-      if(target.className === 'delete'){
-        let books = JSON.parse(localStorage.getItem('books'));
-        
-        books.forEach(book => {
-            
-            if(book.title === target.previousElementSibling.previousElementSibling.previousElementSibling.innerText){
-                
-                // books.splice(book, 1);
-                // localStorage.setItem('books', JSON.stringify(books));
-            }
-          });
-        
-        
+    static deleteBook(target){ //this is broken
+        if(target.className === 'delete') {
+            let books = JSON.parse(localStorage.getItem('books'));
+            let removeReference = target.parentElement.parentElement.firstElementChild.innerHTML;
+            books.forEach( book => {
+                if(book.title === removeReference){
+                    books.splice(books.indexOf(book), 1);
+                    localStorage.setItem('books', JSON.stringify(books));
+                }
+            });
         }
     }
 }
@@ -46,7 +41,6 @@ class UI {
 
         if(localStorage.length === 1) {
             books = JSON.parse(localStorage.getItem('books'));
-            console.log(books.length);
         }
         else{
             books = JSON.parse(localStorage.getItem('filteredBooks'));
@@ -59,12 +53,11 @@ class UI {
                 <td class="bookTitle">${book.title}</td>
                 <td>${book.author}</td>
                 <td>${book.owner}</td>
-                <td class="delete">X</td>`;
+                <td><a href='' class='delete'>X</a></td>`;
             frag.appendChild(row);
         });
-
-        bookList.appendChild(frag);
         
+        bookList.appendChild(frag);        
     }
 
     showAlert(message, className){
@@ -88,17 +81,10 @@ class Search{
         const totalBooks = books.length;
         const filteredBooks = books.filter(book => book[field].toLowerCase().includes(searchValue.toLowerCase()));
         
-        
         localStorage.setItem("filteredBooks", JSON.stringify(filteredBooks));
-    
-    
         ui.render();
-    
-         localStorage.removeItem("filteredBooks");
-    
-        if (elementId.value === '') { ui.render }
-    }
-    
+        localStorage.removeItem("filteredBooks");
+    }   
 
     static titleSearch() {
         this.search("sTitleInput", "title");
@@ -117,28 +103,20 @@ class Search{
 /*Main Script*/
 
 const ui = new UI();
-// const book = new Book(title, author, owner);
 
-// good
-window.addEventListener('load', () => {
-  if(localStorage.hasOwnProperty('books') === false) {
+window.addEventListener('load', () => {    
+    if(localStorage.hasOwnProperty('books') === false) {
         localStorage.setItem('books', '[]');
     }
     else{
-        
         ui.render();
     }
 });
     
-
-
-
-// good
 document.getElementById('addSubmitBtn').addEventListener('click', () => {
     const title = document.getElementById('aTitleInput').value;
     const author = document.getElementById('aAuthorInput').value;
     const owner = document.getElementById('aOwnerInput').value;
-
     const book = new Book(title, author, owner);
 
     if(title === '' || author === '' || owner === ''){
@@ -151,13 +129,9 @@ document.getElementById('addSubmitBtn').addEventListener('click', () => {
     }
 });
 
-
-// good
 document.getElementById('bookList').addEventListener('click', (e) => {
-    const book = new Book();
-    book.deleteBook(e.target);
+    Book.deleteBook(e.target);
     ui.render();
-    
 });
 
 /*Search functionality*/
